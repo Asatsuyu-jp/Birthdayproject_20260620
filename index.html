@@ -1,10 +1,210 @@
 <!DOCTYPE html>
-<html>
-  <title>Happy Birthday!</title>
+<html lang="ja">
 <head>
-<body>
-  <h1>Happy Birthday!</h1>
-  <p>テストページです。</p>
-</body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お誕生日おめでとう🎂</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+box-sizing: border-box;
+}
+
+body{
+font-family: 'Zen Maru Gothic', sans-serif;
+background: #fff0f5;
+text-align: center;
+padding: 24px;
+margin: 0;
+min-height: 100vh;
+overflow-x: hidden;
+}
+
+.container{
+max-width: 700px;
+margin: auto;
+}
+
+h1{
+color: #ff4d6d;
+font-size: clamp(1.8rem, 7vw, 3rem);
+line-height: 1.4;
+}
+
+p{
+font-size: clamp(1.1rem, 5vw, 1.5rem);
+}
+
+button{
+border: none;
+border-radius: 16px;
+padding: 15px 25px;
+margin: 10px;
+cursor: pointer;
+transition: all 0.2s;
+font-family: 'Zen Maru Gothic', sans-serif;
+}
+
+#yesBtn{
+background: #ff4d6d;
+color: white;
+font-size: 24px;
+}
+
+#noBtn{
+background: #d9d9d9;
+color: #333;
+font-size: 20px;
+}
+
+#result{
+display:none;
+}
+
+.heart{
+position: fixed;
+top: -60px;
+font-size: 32px;
+pointer-events: none;
+animation: fallingHeart linear forwards;
+z-index: 9999;
+}
+
+@keyframes fallingHeart{
+0%{
+transform: translateY(-60px) rotate(0deg);
+opacity: 1;
+}
+
+100%{
+transform: translateY(110vh) rotate(360deg);
+opacity: 0;
+}
+}
+
+@media (max-width: 600px){
+body{
+padding: 20px 14px;
+}
+
+button{
+width: 85%;
+max-width: 320px;
+display: block;
+margin: 14px auto;
+}
+
+#yesBtn{
+font-size: 20px;
+}
+
+#noBtn{
+font-size: 16px;
+}
+}
+</style>
 </head>
+
+<body>
+
+<div class="container">
+
+<div id="question">
+<h1>🎂 お誕生日おめでとう！ 🎂</h1>
+
+<p>
+私と一緒に素敵な誕生日にしたい？🥺
+</p>
+
+<div>
+<button id="yesBtn">もちろん！💕</button>
+<button id="noBtn">う〜ん🤔</button>
+</div>
+</div>
+
+<div id="result">
+<h1>えへへ、やっぱり私と一緒が良いよね！💕</h1>
+
+<p style="line-height:1.8;">
+お誕生日おめでとう！🎂✨<br><br>
+
+離れていても、<br>
+涼太の誕生日をお祝いできて嬉しい。<br><br>
+
+いつも本当にありがとう✨<br>
+日本に帰ったらいっぱい遊ぼうね！<br><br>
+
+大好きだよ❤️
+</p>
+
+<p style="font-size:18px;">
+真納より
+</p>
+</div>
+
+</div>
+
+<script>
+let noCount = 0;
+
+const messages = [
+"えっ？🥺",
+"考え直して〜🥲",
+"お願い！🙏",
+"だめ？😭",
+"最後のチャンス！😳",
+"もう一回考えて！🥺",
+"YES！でしょ？🥺💕",
+"もちろんYES！！！！"
+];
+
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
+function launchCelebration(){
+for(let i = 0; i < 70; i++){
+const heart = document.createElement("div");
+heart.className = "heart";
+heart.innerHTML = ["💖","💕","❤️","💗","💝"][Math.floor(Math.random() * 5)];
+
+heart.style.left = Math.random() * 100 + "vw";
+heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+heart.style.fontSize = (22 + Math.random() * 20) + "px";
+
+document.body.appendChild(heart);
+
+setTimeout(() => {
+heart.remove();
+}, 7000);
+}
+}
+
+noBtn.addEventListener("click", () => {
+if(noCount < messages.length){
+noBtn.innerText = messages[noCount];
+}
+
+let currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+
+yesBtn.style.fontSize = (currentSize + 6) + "px";
+
+yesBtn.style.padding =
+(15 + noCount * 3) + "px " +
+(25 + noCount * 4) + "px";
+
+noCount++;
+});
+
+yesBtn.addEventListener("click", () => {
+document.getElementById("question").style.display = "none";
+document.getElementById("result").style.display = "block";
+document.body.style.background = "#ffe6f0";
+
+launchCelebration();
+});
+</script>
+
+</body>
 </html>
